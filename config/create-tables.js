@@ -120,6 +120,33 @@ const tables = [
     CONSTRAINT fk_views_news FOREIGN KEY (news_id) REFERENCES news(id) ON DELETE CASCADE,
     CONSTRAINT fk_views_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );`,
+  `CREATE TABLE IF NOT EXISTS news_tags (
+    id BIGSERIAL PRIMARY KEY,
+    news_id INT,
+    tag_id INT,
+    CONSTRAINT fk_news FOREIGN KEY (news_id) REFERENCES news(id) ON DELETE CASCADE,
+    CONSTRAINT fk_tags FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+);
+`,
+  `CREATE TABLE IF NOT EXISTS authors (
+    id BIGSERIAL PRIMARY KEY,
+    user_id int,
+    is_approved BOOLEAN DEFAULT FALSE,
+    is_editor BOOLEAN DEFAULT FALSE,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+`,
+  `CREATE TABLE IF NOT EXISTS notifications (
+    id BIGSERIAL PRIMARY KEY,
+    user_id INT,
+    news_id INT,
+    msg_type VARCHAR(50) NOT NULL,
+    is_checked BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_news FOREIGN KEY (news_id) REFERENCES news(id) ON DELETE CASCADE
+);
+`,
 ];
 
 module.exports = async () => {
