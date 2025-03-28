@@ -1,12 +1,12 @@
 const express = require("express");
 const config = require("config");
-
+const cookieParse = require("cookie-parser");
 const PORT = config.get("port") || 3030;
 const mainRouter = require("./routes/index.routes");
 const createTables = require("./config/create-tables");
 
 const app = express();
-
+app.use(cookieParse());
 app.use(express.json());
 
 app.use("/api", mainRouter);

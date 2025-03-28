@@ -13,5 +13,6 @@ router.use("/likes", require("./likes.routes"));
 router.use("/reports", require("./reports.routes"));
 router.use("/comments", require("./commentes.routes"));
 router.use("/views", require("./views.routes"));
+router.use("/otp", require("./otp.routes"));
 module.exports = router;
   
